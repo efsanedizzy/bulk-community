@@ -85,7 +85,7 @@ a {
 
 /* Hero Section */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -348,5 +348,38 @@ a {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
                  0 0 16px rgba(255, 255, 255, 0.4);
 }
+/* MOBILE FIX */
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .community-section {
+        padding: 40px 20px;
+        height: auto;
+    }
+
+    .community-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .community-grid img {
+        width: 100%;
+        height: auto;
+    }
+
+}
+section {
+    width: 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 
 
