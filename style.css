@@ -49,20 +49,65 @@ a {
     filter: brightness(0.9);
 }
 
+/* =========================
+   PREMIUM NAV BUTTONS
+========================= */
+
 .nav-links {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 12px 33px;
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.08);
 }
 
+/* Buton */
 .nav-links a {
-    color: #aaa;
-    margin: 0 15px;
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 30px;
     font-size: 0.9rem;
-    font-weight: 400;
+    font-weight: 500;
+    color: #aaa;
+    transition: all 0.3s ease;
 }
+
+/* Hover */
+.nav-links a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+}
+
+/* Active */
+.nav-links a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.15);
+    box-shadow:
+        0 0 15px rgba(255,255,255,0.3),
+        0 0 30px rgba(255,255,255,0.1);
+}
+
+/* Alt ışık çizgisi */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, white, transparent);
+    transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
 
 .nav-links a:hover, .nav-links a.active {
     color: #fff;
@@ -113,11 +158,33 @@ a {
     font-size: 5.5rem;
     font-weight: 400;
     line-height: 1.05;
-    color: #e8e8e8;
+    color: #ffffff;
     margin-bottom: 40px;
     letter-spacing: -1.5px;
-    text-shadow: 0 0 20px rgba(0,0,0,0.5);
+
+    /* PARLAMA */
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.6),
+        0 0 20px rgba(255,255,255,0.4),
+        0 0 40px rgba(255,255,255,0.25);
 }
+.hero-title {
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow:
+            0 0 8px rgba(255,255,255,0.4),
+            0 0 15px rgba(255,255,255,0.3);
+    }
+    100% {
+        text-shadow:
+            0 0 20px rgba(255,255,255,0.8),
+            0 0 40px rgba(255,255,255,0.4);
+    }
+}
+
 
 .hero-title .italic-text {
     font-style: italic;
@@ -285,6 +352,31 @@ a {
     cursor: pointer;
     position: relative;
     z-index: 1;
+}   
+/* Grid stacking düzeltme */
+.gallery-grid {
+    position: relative;
+}
+
+/* Link kart gibi davransın */
+.gallery-grid a {
+    display: block;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Hover edilen kart */
+.gallery-grid a:hover {
+    transform: scale(1.35);
+    z-index: 20;   /* Diğerlerinin üstüne çıkar */
+    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+}
+
+/* Diğer kartları blurla */
+.gallery-grid:hover a:not(:hover) {
+    filter: blur(3px) brightness(0.6);
+    opacity: 0.7;
 }
 
 /* Hover yapılan foto */
@@ -293,26 +385,14 @@ a {
     display: block;
 }
 
-.gallery-grid a img {
+.gallery-grid img {
     width: 100%;
     border-radius: 12px;
-    transition: 
-        transform 0.4s ease,
-        filter 0.4s ease,
-        opacity 0.4s ease,
-        box-shadow 0.4s ease;
+    display: block;
+    transition: inherit;  /* animasyon a’dan miras alır */
 }
 
-.gallery-grid a:hover img {
-    transform: scale(1.5);
-    z-index: 10;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-}
 
-.gallery-grid:hover a:not(:hover) img {
-    filter: blur(3px) brightness(0.6);
-    opacity: 0.7;
-}
 .signature {
     position: fixed;
     bottom: 20px;
@@ -352,8 +432,10 @@ a {
 @media (max-width: 768px) {
 
     body {
-        overflow-x: hidden;
-    }
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 
     .community-section {
         padding: 40px 20px;
@@ -380,6 +462,342 @@ img {
     max-width: 100%;
     height: auto;
 }
+/* Grid düzeni */
+#memesGallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px 20px; /* dikey boşluk artırıldı */
+}
 
+/* Kart */
+.meme-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+/* Foto */
+.meme-item {
+    width: 100%;
+    cursor: pointer;
+}
 
+/* Oy yazısı */
+.meme-votes {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.95rem;
+}
+/* Grid düzeni */
+#memesGallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px 20px; /* dikey boşluk artırıldı */
+}
+
+/* Kart */
+.meme-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Foto */
+.meme-item {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Oy yazısı */
+.meme-votes {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #fff;
+    font-size: 0.95rem;
+}
+.meme-card.voted img {
+    animation: glowPulse 0.6s ease;
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+    50% { box-shadow: 0 0 30px rgba(0,255,200,0.9); }
+    100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
+}
+/* GOLD */
+.rank-1 img {
+    border: 3px solid gold;
+    box-shadow: 0 0 25px gold;
+}
+
+/* SILVER */
+.rank-2 img {
+    border: 3px solid silver;
+    box-shadow: 0 0 20px silver;
+}
+
+/* BRONZE */
+.rank-3 img {
+    border: 3px solid #cd7f32;
+    box-shadow: 0 0 20px #cd7f32;
+}
+
+/* Görsel geçiş animasyonu */
+.meme-card img {
+    width: 100%;
+    display: block;
+    transition: 
+        transform 0.4s ease,
+        filter 0.4s ease,
+        opacity 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+/* Hover yapılan kart */
+.gallery-grid:hover .meme-card:hover img {
+    transform: scale(1.5);
+    z-index: 5;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+/* Hover yapılmayan diğer kartlar */
+.gallery-grid:hover .meme-card:not(:hover) img {
+    filter: blur(3px) brightness(0.6);
+    opacity: 0.7;
+}
+.meme-item {
+    overflow: hidden;
+    position: relative;
+}
+
+.meme-card {
+    width: 100%;
+}
+
+.meme-item {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Kare yapmak için */
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+}
+.meme-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* En önemli kısım */
+    display: block;
+    transition: transform 0.4s ease,
+                filter 0.4s ease,
+                opacity 0.4s ease,
+                box-shadow 0.4s ease;
+}
+#memesGallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px 25px;
+}
+.meme-votes {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 600;
+    font-size: 15px;
+}
+/* Community kart */
+.community-card {
+    width: 100%;
+}
+
+/* Sabit oran çerçeve */
+.community-item {
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* Kare */
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+}
+
+/* Görsel */
+.community-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 
+        transform 0.4s ease,
+        filter 0.4s ease,
+        opacity 0.4s ease,
+        box-shadow 0.4s ease;
+}
+#communityGallery .gallery-grid a {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* Kare oran */
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+}
+
+#communityGallery .gallery-grid a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: 
+        transform 0.4s ease,
+        filter 0.4s ease,
+        opacity 0.4s ease,
+        box-shadow 0.4s ease;
+}
+#communityGallery .gallery-grid a:hover img {
+    transform: scale(1.5);
+    z-index: 5;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+#communityGallery .gallery-grid:hover a:not(:hover) img {
+    filter: blur(3px) brightness(0.6);
+    opacity: 0.7;
+}
+#communityGallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px 25px;
+}
+nav a:focus {
+    outline: none;
+}
+
+nav a:focus-visible {
+    outline: none;
+}
+.menu-item.active {
+    color: white;
+    filter: brightness(1.5);
+}
+.active {
+    filter: none;
+    color: white;
+}
+.menu-item:focus {
+    outline: none;
+    filter: none;
+}
+.community-gallery {
+    display: none;
+    padding: 120px 40px 80px;
+    min-height: 100vh;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+.hero {
+    position: relative;
+}
+/* =========================
+   COMMUNITY & MEMES FIX
+   Fotoğrafların tamamı görünsün
+========================= */
+
+/* Community grid */
+#communityGallery .gallery-grid,
+#memesGallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+/* Community kart */
+#communityGallery .gallery-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* Meme kart */
+.meme-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+/* FOTOĞRAF */
+#communityGallery img,
+#memesGallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* TAMAMINI GÖSTER */
+    display: block;
+}
+
+/* Hover scale iptal (taşmayı engeller) */
+#communityGallery .gallery-grid a:hover img,
+.gallery-grid:hover .meme-card:hover img {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+}
+/* =========================
+   3D ROTATING STAR
+========================= */
+
+.hero-top-icon-container {
+    perspective: 1000px;
+}
+
+.hero-main-star {
+    width: 80px;
+    height: auto;
+    animation: rotateStar 6s linear infinite;
+    transform-style: preserve-3d;
+}
+
+/* 3D dönüş */
+@keyframes rotateStar {
+    0% {
+        transform: rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: rotateY(180deg) rotateX(20deg);
+    }
+    100% {
+        transform: rotateY(360deg) rotateX(0deg);
+    }
+}
+/* =========================
+   MOUSE LIGHT EFFECT
+========================= */
+
+.hero-title {
+    position: relative;
+    display: inline-block;
+    color: #ffffff;
+    z-index: 2;
+}
+
+/* Işık katmanı */
+.hero-title::after {
+    content: "";
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255,255,255,0.6) 0%,
+        rgba(255,255,255,0.25) 20%,
+        transparent 60%
+    );
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+    transition: background 0.1s ease;
+}
