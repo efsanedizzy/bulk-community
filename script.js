@@ -1,874 +1,189 @@
-/* Genel Ayarlar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-body {
-    background: 
-        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-        url("ChatGPT\ Image\ 10\ Şub\ 2026\ 17_55_12.png") no-repeat center center fixed;
-    background-size: cover;
-}
+    /* ===============================
+       STAR BACKGROUND SYSTEM
+    =============================== */
 
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: 0.3s;
-    display: inline-flex; /* İkon ve metin hizalaması için */
-    align-items: center;
-}
+    const starsContainer = document.getElementById("stars-container");
+    const starCount = 180;
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 50px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 10;
-}
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
 
-.logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #e0e0e0;
-}
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const size = Math.random() * 2.5;
 
-/* GÜNCELLEME: Logo görseli boyutu */
-.logo-img {
-    height: 42px;
-    width: auto;
-    filter: brightness(0.9);
-}
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.opacity = Math.random() * 0.7 + 0.3;
 
-/* =========================
-   PREMIUM NAV BUTTONS
-========================= */
+        const duration = Math.random() * 4 + 3;
+        const delay = Math.random() * 5;
 
-.nav-links {
-    display: flex;
-    gap: 10px;
-    padding: 8px;
-    background: rgba(255,255,255,0.04);
-    backdrop-filter: blur(12px);
-    border-radius: 40px;
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-/* Buton */
-.nav-links a {
-    position: relative;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #aaa;
-    transition: all 0.3s ease;
-}
-
-/* Hover */
-.nav-links a:hover {
-    color: #fff;
-    background: rgba(255,255,255,0.08);
-    transform: translateY(-2px);
-}
-
-/* Active */
-.nav-links a.active {
-    color: #fff;
-    background: rgba(255,255,255,0.15);
-    box-shadow:
-        0 0 15px rgba(255,255,255,0.3),
-        0 0 30px rgba(255,255,255,0.1);
-}
-
-/* Alt ışık çizgisi */
-.nav-links a::after {
-    content: "";
-    position: absolute;
-    bottom: -4px;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, white, transparent);
-    transition: transform 0.3s ease;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    transform: translateX(-50%) scaleX(1);
-}
-
-
-.nav-links a:hover, .nav-links a.active {
-    color: #fff;
-}
-
-.btn-glass {
-    padding: 12px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    background: rgba(255, 255, 255, 0.01);
-    color: #ddd;
-}
-
-.btn-glass:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
-}
-
-/* Hero Section */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    z-index: 5;
-    padding-bottom: 60px;
-}
-
-.hero-top-icon-container {
-    margin-bottom: 35px;
-}
-
-/* GÜNCELLEME: Ortadaki ana yıldızın boyutu ve parlama efekti */
-.hero-main-star {
-    height: 55px;
-    width: auto;
-    /* Resimler için drop-shadow ile parlama efekti */
-    animation: starGlow 3s infinite alternate ease-in-out;
-}
-
-.hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 5.5rem;
-    font-weight: 400;
-    line-height: 1.05;
-    color: #ffffff;
-    margin-bottom: 40px;
-    letter-spacing: -1.5px;
-
-    /* PARLAMA */
-    text-shadow:
-        0 0 10px rgba(255,255,255,0.6),
-        0 0 20px rgba(255,255,255,0.4),
-        0 0 40px rgba(255,255,255,0.25);
-}
-.hero-title {
-    animation: titleGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes titleGlow {
-    0% {
-        text-shadow:
-            0 0 8px rgba(255,255,255,0.4),
-            0 0 15px rgba(255,255,255,0.3);
-    }
-    100% {
-        text-shadow:
-            0 0 20px rgba(255,255,255,0.8),
-            0 0 40px rgba(255,255,255,0.4);
-    }
-}
-
-
-.hero-title .italic-text {
-    font-style: italic;
-    color: #d4d4d4;
-    font-family: 'Playfair Display', serif;
-}
-
-.hero-cta {
-    margin-bottom: 50px;
-    position: relative;
-}
-
-/* Butonun altındaki hafif ışık hüzmesi efekti */
-.hero-cta::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 40px;
-    background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: -1;
-}
-
-.btn-primary {
-    background: linear-gradient(180deg, #222222 0%, #111111 100%);
-    border: 1px solid #3a3a3a;
-    padding: 14px 32px;
-    border-radius: 8px;
-    color: #fff;
-    font-size: 1rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary:hover {
-    border-color: #555;
-    background: linear-gradient(180deg, #2a2a2a 0%, #161616 100%);
-    box-shadow: 0 4px 25px rgba(255, 255, 255, 0.08);
-}
-
-.social-icons {
-    position: absolute;
-    bottom: 200px;   /* aşağıdan mesafe */
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    z-index: 6;      /* hero'nun üstünde kalsın */
-}
-
-
-.social-icons a {
-    color: #777;
-    font-size: 1.3rem;
-    transition: 0.3s;
-}
-
-.social-icons a:hover {
-    color: #fd0000;
-    transform: translateY(-2px);
-}
-
-.scroll-indicator {
-    color: #555;
-    font-size: 1.1rem;
-    position: absolute;
-    bottom: 40px;
-    animation: bounce 2s infinite;
-}
-
-/* Arka Plan Efektleri */
-#stars-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
-.star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-}
-
-/* Dağ Silüeti Efekti */
-.terrain-overlay {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 45vh;
-    z-index: 2;
-    pointer-events: none;
-    /* Daha koyu ve dramatik bir geçiş */
-    background: linear-gradient(to top, #020202 10%, rgba(5,5,5,0.8) 40%, transparent 100%);
-    
-    /* Noise efekti (isteğe bağlı) */
-    background-image: 
-        linear-gradient(to top, #020202 10%, rgba(5,5,5,0.8) 40%, transparent 100%),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-}
-
-
-/* Animasyonlar */
-/* GÜNCELLEME: Resimler için yeni parlama animasyonu */
-@keyframes starGlow {
-    0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.3)) brightness(0.9); }
-    100% { filter: drop-shadow(0 0 12px rgba(255,255,255,0.8)) brightness(1.1); }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-8px);}
-    60% {transform: translateY(-4px);}
-}
-
-/* Mobil Uyumluluk */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3.2rem;
-    }
-    .navbar {
-        padding: 20px;
-    }
-    .nav-links {
-        display: none;
-    }
-    .logo-img {
-        height: 20px;
-    }
-    .hero-main-star {
-        height: 40px;
-    }
-}
-/* Community Gallery */
-.community-gallery {
-    display: none;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-    width: 80%;
-    max-width: 1200px;
-}
-
-.gallery-grid img {
-    width: 100%;
-    border-radius: 12px;
-    transition: 
-        transform 0.4s ease,
-        filter 0.4s ease,
-        opacity 0.4s ease,
-        box-shadow 0.4s ease;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-}   
-/* Grid stacking düzeltme */
-.gallery-grid {
-    position: relative;
-}
-
-/* Link kart gibi davransın */
-.gallery-grid a {
-    display: block;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-/* Hover edilen kart */
-.gallery-grid a:hover {
-    transform: scale(1.35);
-    z-index: 20;   /* Diğerlerinin üstüne çıkar */
-    box-shadow: 0 30px 80px rgba(0,0,0,0.8);
-}
-
-/* Diğer kartları blurla */
-.gallery-grid:hover a:not(:hover) {
-    filter: blur(3px) brightness(0.6);
-    opacity: 0.7;
-}
-
-/* Hover yapılan foto */
-.gallery-grid a {
-    position: relative;
-    display: block;
-}
-
-.gallery-grid img {
-    width: 100%;
-    border-radius: 12px;
-    display: block;
-    transition: inherit;  /* animasyon a’dan miras alır */
-}
-
-
-.signature {
-    position: fixed;
-    bottom: 20px;
-    right: 25px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1.05rem;
-    color: #888;
-    z-index: 20;
-    transition: all 0.3s ease;
-}
-
-.signature i {
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
-
-.signature a {
-    color: #888;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-/* 🔥 Hover Glow */
-.signature:hover {
-    color: #ffffff;
-}
-
-.signature:hover i,
-.signature:hover a {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
-                 0 0 16px rgba(255, 255, 255, 0.4);
-}
-/* MOBILE FIX */
-@media (max-width: 768px) {
-
-    body {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-
-    .community-section {
-        padding: 40px 20px;
-        height: auto;
+        star.style.animation = `twinkle ${duration}s infinite ${delay}s ease-in-out alternate`;
+        starsContainer.appendChild(star);
     }
 
-    .community-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = `
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+    `;
+    document.head.appendChild(styleSheet);
+
+
+    /* ===============================
+       NAVIGATION SYSTEM
+    =============================== */
+
+    const docsBtn = document.getElementById("docsBtn");
+    const communityBtn = document.getElementById("communityBtn");
+    const memesBtn = document.getElementById("memesBtn");
+
+    const heroContent = document.getElementById("heroContent");
+    const communityGallery = document.getElementById("communityGallery");
+    const memesGallery = document.getElementById("memesGallery");
+
+    function setActive(button) {
+        docsBtn.classList.remove("active");
+        communityBtn.classList.remove("active");
+        memesBtn.classList.remove("active");
+        button.classList.add("active");
     }
 
-    .community-grid img {
-        width: 100%;
-        height: auto;
+    function showSection(section) {
+        heroContent.style.display = "none";
+        communityGallery.style.display = "none";
+        memesGallery.style.display = "none";
+        section.style.display = "flex";
     }
 
-}
-section {
-    width: 100%;
-}
+    docsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        setActive(docsBtn);
+        heroContent.style.display = "block";
+        communityGallery.style.display = "none";
+        memesGallery.style.display = "none";
+    });
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-/* Grid düzeni */
-#memesGallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 30px 20px; /* dikey boşluk artırıldı */
-}
+    communityBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        setActive(communityBtn);
+        showSection(communityGallery);
+    });
 
-/* Kart */
-.meme-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    memesBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        setActive(memesBtn);
+        showSection(memesGallery);
+    });
 
-/* Foto */
-.meme-item {
-    width: 100%;
-    cursor: pointer;
-}
 
-/* Oy yazısı */
-.meme-votes {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #fff;
-    font-size: 0.95rem;
-}
-/* Grid düzeni */
-#memesGallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 30px 20px; /* dikey boşluk artırıldı */
-}
+    /* ===============================
+       MEME VOTING SYSTEM
+    =============================== */
 
-/* Kart */
-.meme-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+    const memeCards = document.querySelectorAll("#memesGallery .meme-card");
+    const memesContainer = document.querySelector("#memesGallery .gallery-grid");
 
-/* Foto */
-.meme-item {
-    width: 100%;
-    cursor: pointer;
-}
+    let votes = JSON.parse(localStorage.getItem("memeVotes")) || {};
+    let hasVoted = localStorage.getItem("hasVoted");
 
-/* Oy yazısı */
-.meme-votes {
-    margin-top: 10px;
-    font-weight: 600;
-    color: #fff;
-    font-size: 0.95rem;
-}
-.meme-card.voted img {
-    animation: glowPulse 0.6s ease;
-}
+    function animateNumber(element, start, end, duration = 400) {
+        let startTime = null;
 
-@keyframes glowPulse {
-    0% { box-shadow: 0 0 0 rgba(255,255,255,0); }
-    50% { box-shadow: 0 0 30px rgba(0,255,200,0.9); }
-    100% { box-shadow: 0 0 0 rgba(255,255,255,0); }
-}
-/* GOLD */
-.rank-1 img {
-    border: 3px solid gold;
-    box-shadow: 0 0 25px gold;
-}
+        function animation(currentTime) {
+            if (!startTime) startTime = currentTime;
+            let progress = currentTime - startTime;
 
-/* SILVER */
-.rank-2 img {
-    border: 3px solid silver;
-    box-shadow: 0 0 20px silver;
-}
+            let value = Math.min(
+                start + Math.floor((progress / duration) * (end - start)),
+                end
+            );
 
-/* BRONZE */
-.rank-3 img {
-    border: 3px solid #cd7f32;
-    box-shadow: 0 0 20px #cd7f32;
-}
+            element.textContent = value;
 
-/* Görsel geçiş animasyonu */
-.meme-card img {
-    width: 100%;
-    display: block;
-    transition: 
-        transform 0.4s ease,
-        filter 0.4s ease,
-        opacity 0.4s ease,
-        box-shadow 0.4s ease;
-}
+            if (progress < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                element.textContent = end;
+            }
+        }
 
-/* Hover yapılan kart */
-.gallery-grid:hover .meme-card:hover img {
-    transform: scale(1.5);
-    z-index: 5;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-}
-
-/* Hover yapılmayan diğer kartlar */
-.gallery-grid:hover .meme-card:not(:hover) img {
-    filter: blur(3px) brightness(0.6);
-    opacity: 0.7;
-}
-.meme-item {
-    overflow: hidden;
-    position: relative;
-}
-
-.meme-card {
-    width: 100%;
-}
-
-.meme-item {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* Kare yapmak için */
-    overflow: hidden;
-    position: relative;
-    border-radius: 16px;
-}
-.meme-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;   /* En önemli kısım */
-    display: block;
-    transition: transform 0.4s ease,
-                filter 0.4s ease,
-                opacity 0.4s ease,
-                box-shadow 0.4s ease;
-}
-#memesGallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 40px 25px;
-}
-.meme-votes {
-    text-align: center;
-    margin-top: 12px;
-    font-weight: 600;
-    font-size: 15px;
-}
-/* Community kart */
-.community-card {
-    width: 100%;
-}
-
-/* Sabit oran çerçeve */
-.community-item {
-    width: 100%;
-    aspect-ratio: 1 / 1;   /* Kare */
-    overflow: hidden;
-    position: relative;
-    border-radius: 16px;
-}
-
-/* Görsel */
-.community-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: 
-        transform 0.4s ease,
-        filter 0.4s ease,
-        opacity 0.4s ease,
-        box-shadow 0.4s ease;
-}
-#communityGallery .gallery-grid a {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;   /* Kare oran */
-    overflow: hidden;
-    position: relative;
-    border-radius: 16px;
-}
-
-#communityGallery .gallery-grid a img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: 
-        transform 0.4s ease,
-        filter 0.4s ease,
-        opacity 0.4s ease,
-        box-shadow 0.4s ease;
-}
-#communityGallery .gallery-grid a:hover img {
-    transform: scale(1.5);
-    z-index: 5;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
-}
-#communityGallery .gallery-grid:hover a:not(:hover) img {
-    filter: blur(3px) brightness(0.6);
-    opacity: 0.7;
-}
-#communityGallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 40px 25px;
-}
-nav a:focus {
-    outline: none;
-}
-
-nav a:focus-visible {
-    outline: none;
-}
-.menu-item.active {
-    color: white;
-    filter: brightness(1.5);
-}
-.active {
-    filter: none;
-    color: white;
-}
-.menu-item:focus {
-    outline: none;
-    filter: none;
-}
-.community-gallery {
-    display: none;
-    padding: 120px 40px 80px;
-    min-height: 100vh;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-.hero {
-    position: relative;
-}
-/* =========================
-   COMMUNITY & MEMES FIX
-   Fotoğrafların tamamı görünsün
-========================= */
-
-/* Community grid */
-#communityGallery .gallery-grid,
-#memesGallery .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-}
-
-/* Community kart */
-#communityGallery .gallery-grid a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
-    background: #111;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-/* Meme kart */
-.meme-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
-    background: #111;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-/* FOTOĞRAF */
-#communityGallery img,
-#memesGallery img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;   /* TAMAMINI GÖSTER */
-    display: block;
-}
-
-/* Hover scale iptal (taşmayı engeller) */
-#communityGallery .gallery-grid a:hover img,
-.gallery-grid:hover .meme-card:hover img {
-    transform: none !important;
-    filter: none !important;
-    opacity: 1 !important;
-}
-/* =========================
-   3D ROTATING STAR
-========================= */
-
-.hero-top-icon-container {
-    perspective: 1000px;
-}
-
-.hero-main-star {
-    width: 80px;
-    height: auto;
-    animation: rotateStar 6s linear infinite;
-    transform-style: preserve-3d;
-}
-
-/* 3D dönüş */
-@keyframes rotateStar {
-    0% {
-        transform: rotateY(0deg) rotateX(0deg);
-    }
-    50% {
-        transform: rotateY(180deg) rotateX(20deg);
-    }
-    100% {
-        transform: rotateY(360deg) rotateX(0deg);
-    }
-}
-/* =========================
-   MOUSE LIGHT EFFECT
-========================= */
-
-.hero-title {
-    position: relative;
-    display: inline-block;
-    color: #ffffff;
-    z-index: 2;
-}
-
-/* Işık katmanı */
-.hero-title::after {
-    content: "";
-    position: absolute;
-    inset: -40px;
-    background: radial-gradient(
-        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(255,255,255,0.6) 0%,
-        rgba(255,255,255,0.25) 20%,
-        transparent 60%
-    );
-    filter: blur(40px);
-    z-index: -1;
-    pointer-events: none;
-    transition: background 0.1s ease;
-}
-/* ================= NAV FIX ================= */
-
-nav {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-}
-
-.nav-container {
-    display: flex;
-    gap: 40px;
-}
-
-/* Mobilde butonlar kaybolmasın */
-
-@media (max-width: 768px) {
-
-    .nav-container {
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
+        requestAnimationFrame(animation);
     }
 
-}
-/* ================= GALLERY CENTER FIX ================= */
+    function sortMemes() {
+        const items = Array.from(memesContainer.children);
 
-.gallery-grid {
-    margin: 0 auto;
-}
-.gallery-grid img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-.meme-card {
-    position: relative;
-    transition: transform 0.3s ease, z-index 0.3s ease;
-}
+        items.sort((a, b) => {
+            return votes[b.dataset.id] - votes[a.dataset.id];
+        });
 
-.meme-card:hover {
-    transform: scale(1.08);
-    z-index: 10;
-}
+        items.forEach(item => memesContainer.appendChild(item));
+        updateRanks();
+    }
 
-.meme-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 16px;
-}
-.vote-count {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.75);
-    color: #ffffff;
-    padding: 6px 10px;
-    border-radius: 12px;
-    font-weight: bold;
-    font-size: 14px;
-    z-index: 20;
-    pointer-events: none;
-}
+    function updateRanks() {
+        const items = Array.from(memesContainer.children);
 
-.meme-card {
-    position: relative;
-}
+        items.forEach(card => {
+            card.classList.remove("rank-1", "rank-2", "rank-3");
+        });
+
+        if (items[0]) items[0].classList.add("rank-1");
+        if (items[1]) items[1].classList.add("rank-2");
+        if (items[2]) items[2].classList.add("rank-3");
+    }
+
+    memeCards.forEach(card => {
+        const id = card.dataset.id;
+        const countEl = card.querySelector(".vote-count");
+
+        if (!votes[id]) votes[id] = 0;
+        countEl.textContent = votes[id];
+
+        card.querySelector(".meme-item").addEventListener("click", (e) => {
+            e.preventDefault();
+            if (hasVoted) return;
+
+            const oldValue = votes[id];
+            votes[id]++;
+
+            localStorage.setItem("memeVotes", JSON.stringify(votes));
+            localStorage.setItem("hasVoted", "true");
+
+            hasVoted = true;
+
+            card.classList.add("voted");
+            animateNumber(countEl, oldValue, votes[id]);
+
+            sortMemes();
+        });
+    });
+
+    sortMemes();
+
+});
+/* ===============================
+   MOUSE LIGHT TRACKING
+=============================== */
+
+const title = document.querySelector(".hero-title");
+
+document.addEventListener("mousemove", (e) => {
+
+    const rect = title.getBoundingClientRect();
+
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    title.style.setProperty("--mouse-x", x + "%");
+    title.style.setProperty("--mouse-y", y + "%");
+});
