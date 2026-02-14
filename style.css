@@ -801,3 +801,41 @@ nav a:focus-visible {
     pointer-events: none;
     transition: background 0.1s ease;
 }
+/* ================= NAV FIX ================= */
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    gap: 40px;
+}
+
+/* Mobilde butonlar kaybolmasın */
+
+@media (max-width: 768px) {
+
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+
+}
+/* ================= GALLERY CENTER FIX ================= */
+
+.gallery-grid {
+    margin: 0 auto;
+}
+.gallery-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
